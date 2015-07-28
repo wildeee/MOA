@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import moa.Config;
+
 import moa.Piece;
-import moa.Position;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,17 +39,13 @@ public class NormalPieceTest {
 
     @Test
     public void NormalPieceCtrTest() {
-        Position pos = new Position(0, 0);
-        Piece p = new Piece(pos, 1);
-
-        assertEquals(p.getPosition(), pos);
+        Piece p = new Piece(1);
         assertEquals(p.getNumber(), 1);
     }
 
     @Test
     public void PieceCloneTest() {
-        Position pos = new Position(0, 0);
-        Piece p = new Piece(pos, 0);
+        Piece p = new Piece(0);
 
         Piece p2 = new Piece(p);
 

@@ -2,26 +2,19 @@ package moa;
 
 public class Piece implements Cloneable {
 
-    private Position position;
     private int number;
 
     public Piece(Piece p) {
         try {
             Piece pi = (Piece) p.clone();
-            position = pi.getPosition();
             number = pi.getNumber();
         } catch (CloneNotSupportedException ex) {
             ex.printStackTrace();
         }
     }
 
-    public Piece(Position position, int number) {
-        this.position = position;
+    public Piece(int number) {
         this.number = number;
-    }
-
-    public Position getPosition() {
-        return position;
     }
 
     public int getNumber() {

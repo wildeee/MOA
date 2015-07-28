@@ -11,8 +11,8 @@ package moa;
  */
 public class EmptyPiece extends Piece {
 
-    public EmptyPiece(Position position, int number) {
-        super(position, number);
+    public EmptyPiece(int number) {
+        super(number);
     }
 
     public EmptyPiece(Piece p) {

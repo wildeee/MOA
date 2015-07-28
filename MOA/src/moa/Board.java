@@ -2,7 +2,7 @@ package moa;
 
 import java.util.List;
 
-public class Board { 
+public class Board {
 
     private static int idCount = 0;
     private final int id;
@@ -14,7 +14,7 @@ public class Board {
         this.id = Board.idCount++;
 
         this.pieces = new Piece[Config.BoardWidth][Config.BoardHeight];
-        
+
         int row = 0;
         int col = 0;
 
@@ -23,30 +23,41 @@ public class Board {
             if (newPiece.getNumber() == Config.EmptyPiece) {
                 this.empty = newPiece;
             }
-            
+
             if (col > 3) {
                 col = 0;
                 row++;
             }
-            
             this.pieces[row][col] = newPiece;
-            
+            col++;
         }
     }
 
     public Piece getEmptyPiece() {
         return this.empty;
     }
-    
+
     @Override
-    public boolean equals(Object obj){
-        if (!(obj instanceof Board))
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Board)) {
             return false;
+        }
         return this.id == ((Board) obj).id;
     }
 
-    public boolean checkWin() {        
-        return false;
+    public Piece getPieceAt(int row, int col) {
+        return this.pieces[row][col];
+    }
+
+    public boolean checkWin() {
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                if (!this.pieces[row][col].equals(Config.Answer[row][col])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 import moa.Config;
 import moa.EmptyPiece;
 import moa.Piece;
-import moa.Position;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,17 +42,14 @@ public class EmptyPieceTest {
     @Test
     public void EmptyPieceTest() {
         int emptyNumber = Config.EmptyPiece;
-        Position pos = new Position(1, 1);
-        Piece emp = new EmptyPiece(pos, emptyNumber);
+        Piece emp = new EmptyPiece(emptyNumber);
 
-        assertEquals(emp.getPosition(), pos);
         assertEquals(emp.getNumber(), emptyNumber);
     }
 
     @Test
     public void PieceCloneTest() {
-        Position pos = new Position(0, 0);
-        Piece p = new EmptyPiece(pos, 0);
+        Piece p = new EmptyPiece(0);
 
         Piece p2 = new EmptyPiece(p);
 
