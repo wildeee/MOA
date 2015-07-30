@@ -6,8 +6,12 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import moa.Board;
 import moa.Config;
+import moa.EMovementType;
+import moa.InvalidMovementException;
 import moa.Piece;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,8 +26,6 @@ import static org.junit.Assert.*;
  */
 public class BoardTest {
 
-    Board board;
-
     public BoardTest() {
     }
 
@@ -37,14 +39,6 @@ public class BoardTest {
 
     @Before
     public void setUp() {
-        List<Piece> lista = new ArrayList<>();
-        int count = Config.EmptyPiece;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                lista.add(new Piece(count));
-            }
-        }
-        board = new Board(lista);
     }
 
     private Board getTabuleiroResolvido() {
@@ -74,12 +68,51 @@ public class BoardTest {
 
     @Test
     public void PegaPecaVazia() {
+        List<Piece> pieces = new ArrayList<>();
+        pieces.add(new Piece(1));
+        pieces.add(new Piece(2));
+        pieces.add(new Piece(3));
+        pieces.add(new Piece(4));
+        pieces.add(new Piece(12));
+        pieces.add(new Piece(13));
+        pieces.add(new Piece(14));
+        pieces.add(new Piece(5));
+        pieces.add(new Piece(11));
+        pieces.add(new Piece(Config.EmptyPiece));
+        pieces.add(new Piece(15));
+        pieces.add(new Piece(6));
+        pieces.add(new Piece(10));
+        pieces.add(new Piece(9));
+        pieces.add(new Piece(8));
+        pieces.add(new Piece(7));
+        Board board = new Board(pieces);
+
         Piece p = new Piece(Config.EmptyPiece);
+
         assertEquals(board.getEmptyPiece(), p);
     }
 
     @Test
     public void VerificaTabuleiroNaoResolvido() {
+        List<Piece> pieces = new ArrayList<>();
+        pieces.add(new Piece(1));
+        pieces.add(new Piece(2));
+        pieces.add(new Piece(3));
+        pieces.add(new Piece(4));
+        pieces.add(new Piece(12));
+        pieces.add(new Piece(13));
+        pieces.add(new Piece(5));
+        pieces.add(new Piece(14));
+        pieces.add(new Piece(11));
+        pieces.add(new Piece(Config.EmptyPiece));
+        pieces.add(new Piece(15));
+        pieces.add(new Piece(6));
+        pieces.add(new Piece(10));
+        pieces.add(new Piece(9));
+        pieces.add(new Piece(8));
+        pieces.add(new Piece(7));
+
+        Board board = new Board(pieces);
         assertFalse(board.checkWin());
     }
 
@@ -109,5 +142,200 @@ public class BoardTest {
         assertEquals(_board.getPieceAt(3, 1), new Piece(9));
         assertEquals(_board.getPieceAt(3, 2), new Piece(8));
         assertEquals(_board.getPieceAt(3, 3), new Piece(7));
+    }
+
+    @Test
+    public void notSameBoardAfterPlay() {
+        Board board = this.getTabuleiroResolvido();
+        Board newBoard;
+        boolean isError = false;
+        try {
+            newBoard = board.movePiece(EMovementType.DOWN);
+            assertNotSame(newBoard, board);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+            Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertFalse(isError);
+    }
+
+    @Test
+    public void movePieceDown() {
+        Board newBoard;
+        boolean isError = false;
+        try {
+            newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.DOWN);
+            assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 13);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+            Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertFalse(isError);
+    }
+
+    @Test
+    public void movePieceUp() {
+        Board newBoard;
+        boolean isError = false;
+        try {
+            newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.UP);
+            assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 9);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+            Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertFalse(isError);
+    }
+
+    @Test
+    public void movePieceLeft() {
+        Board newBoard;
+        boolean isError = false;
+        try {
+            newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.LEFT);
+            assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 15);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+            Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertFalse(isError);
+    }
+
+    @Test
+    public void movePieceRight() {
+        Board newBoard;
+        boolean isError = false;
+        try {
+            newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.RIGHT);
+            assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 11);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+            Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertFalse(isError);
+    }
+
+    @Test
+    public void movePieceDownFail() {
+        List<Piece> pieces = new ArrayList<>();
+        pieces.add(new Piece(Config.EmptyPiece));
+        pieces.add(new Piece(1));
+        pieces.add(new Piece(2));
+        pieces.add(new Piece(3));
+        pieces.add(new Piece(4));
+        pieces.add(new Piece(12));
+        pieces.add(new Piece(13));
+        pieces.add(new Piece(14));
+        pieces.add(new Piece(5));
+        pieces.add(new Piece(11));
+        pieces.add(new Piece(15));
+        pieces.add(new Piece(6));
+        pieces.add(new Piece(10));
+        pieces.add(new Piece(9));
+        pieces.add(new Piece(8));
+        pieces.add(new Piece(7));
+
+        Board board = new Board(pieces);
+        boolean isError = false;
+        try {
+            board.movePiece(EMovementType.DOWN);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+        }
+
+        assertTrue(isError);
+    }
+
+    @Test
+    public void movePieceUpFail() {
+        List<Piece> pieces = new ArrayList<>();
+        pieces.add(new Piece(1));
+        pieces.add(new Piece(2));
+        pieces.add(new Piece(3));
+        pieces.add(new Piece(4));
+        pieces.add(new Piece(12));
+        pieces.add(new Piece(13));
+        pieces.add(new Piece(14));
+        pieces.add(new Piece(5));
+        pieces.add(new Piece(11));
+        pieces.add(new Piece(15));
+        pieces.add(new Piece(6));
+        pieces.add(new Piece(10));
+        pieces.add(new Piece(9));
+        pieces.add(new Piece(8));
+        pieces.add(new Piece(7));
+        pieces.add(new Piece(Config.EmptyPiece));
+
+        Board board = new Board(pieces);
+        boolean isError = false;
+        try {
+            board.movePiece(EMovementType.UP);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+        }
+
+        assertTrue(isError);
+    }
+
+    @Test
+    public void movePieceLeftFail() {
+        List<Piece> pieces = new ArrayList<>();
+        pieces.add(new Piece(1));
+        pieces.add(new Piece(2));
+        pieces.add(new Piece(3));
+        pieces.add(new Piece(4));
+        pieces.add(new Piece(12));
+        pieces.add(new Piece(13));
+        pieces.add(new Piece(14));
+        pieces.add(new Piece(5));
+        pieces.add(new Piece(11));
+        pieces.add(new Piece(15));
+        pieces.add(new Piece(6));
+        pieces.add(new Piece(10));
+        pieces.add(new Piece(9));
+        pieces.add(new Piece(8));
+        pieces.add(new Piece(7));
+        pieces.add(new Piece(Config.EmptyPiece));
+
+        Board board = new Board(pieces);
+        boolean isError = false;
+        try {
+            board.movePiece(EMovementType.LEFT);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+        }
+
+        assertTrue(isError);
+    }
+
+    @Test
+    public void movePieceRightFail() {
+        List<Piece> pieces = new ArrayList<>();
+        pieces.add(new Piece(Config.EmptyPiece));
+        pieces.add(new Piece(1));
+        pieces.add(new Piece(2));
+        pieces.add(new Piece(3));
+        pieces.add(new Piece(4));
+        pieces.add(new Piece(12));
+        pieces.add(new Piece(13));
+        pieces.add(new Piece(14));
+        pieces.add(new Piece(5));
+        pieces.add(new Piece(11));
+        pieces.add(new Piece(15));
+        pieces.add(new Piece(6));
+        pieces.add(new Piece(10));
+        pieces.add(new Piece(9));
+        pieces.add(new Piece(8));
+        pieces.add(new Piece(7));
+
+        Board board = new Board(pieces);
+        boolean isError = false;
+        try {
+            board.movePiece(EMovementType.RIGHT);
+        } catch (InvalidMovementException ex) {
+            isError = true;
+        }
+
+        assertTrue(isError);
     }
 }
