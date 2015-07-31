@@ -31,7 +31,6 @@ public class Board implements Cloneable {
                 }
             }
         }
-
     }
 
     public Board(Board board) {
@@ -74,37 +73,49 @@ public class Board implements Cloneable {
 
     public Board movePiece(EMovementType moveType) throws InvalidMovementException {
         Board returnBoard = new Board(this);
-        Piece target;
+        Piece temp;
+        int row, col;
         switch (moveType) {
             case UP:
-                if (this.empty.getRow() + 1 == Config.BoardHeight) {
+                row = this.empty.getRow() + 1;
+                col = this.empty.getCol();
+                if (row == Config.BoardHeight) {
                     throw new InvalidMovementException();
                 }
 
-                target = this.pieces[this.empty.getRow() + 1][this.empty.getCol()];
+//                target = this.pieces[this.empty.getRow() + 1][this.empty.getCol()];
 
                 break;
             case DOWN:
-                if (this.empty.getRow() - 1 == -1) {
+                row = this.empty.getRow() - 1;
+                col = this.empty.getCol();
+                if (row == -1) {
                     throw new InvalidMovementException();
                 }
 
-                target = this.pieces[this.empty.getRow() - 1][this.empty.getCol()];
-                //Verificar como dar um "swap" nos valores
+                
+                temp = returnBoard.empty;
+//                returnBoard.pieces[row][col];
+                
+                
                 break;
             case LEFT:
-                if (this.empty.getCol() + 1 == Config.BoardWidth) {
+                row = this.empty.getRow();
+                col = this.empty.getCol() + 1;
+                if (col == Config.BoardWidth) {
                     throw new InvalidMovementException();
                 }
 
-                target = this.pieces[this.empty.getRow()][this.empty.getCol() + 1];
+                //target = this.pieces[this.empty.getRow()][this.empty.getCol() + 1];
                 break;
             case RIGHT:
-                if (this.empty.getCol() - 1 == -1) {
+                row = this.empty.getRow();
+                col = this.empty.getCol() - 1;
+                if (col == -1) {
                     throw new InvalidMovementException();
                 }
 
-                target = this.pieces[this.empty.getRow()][this.empty.getCol() - 1];
+//                target = this.pieces[this.empty.getRow()][this.empty.getCol() - 1];
                 break;
             default:
                 throw new UnsupportedOperationException("Operação não suportada.");

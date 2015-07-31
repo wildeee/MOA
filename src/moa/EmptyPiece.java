@@ -11,9 +11,9 @@ package moa;
  */
 public class EmptyPiece extends Piece {
 
-    private final int row;
-    private final int col;
-    
+    private int row;
+    private int col;
+
     public EmptyPiece(int number, int row, int col) {
         super(number);
         this.row = row;
@@ -34,4 +34,11 @@ public class EmptyPiece extends Piece {
         return this.col;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
 }
