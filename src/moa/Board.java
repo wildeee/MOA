@@ -22,13 +22,11 @@ public class Board implements Cloneable {
             for (int col = 0; col < Config.BoardHeight; col++) {
                 index = (row * Config.BoardWidth) + col;
                 iterationPiece = pieces.get(index);
+                Piece emp = new Piece(iterationPiece);
                 if (iterationPiece.getNumber() == Config.EmptyPiece) {
-                    EmptyPiece emp = new EmptyPiece(iterationPiece, row, col);
-                    this.empty = emp;
-                    this.pieces[row][col] = emp;
-                } else {
-                    this.pieces[row][col] = new Piece(iterationPiece);
+                    this.empty = new EmptyPiece(row, col);
                 }
+                this.pieces[row][col] = emp;
             }
         }
     }
@@ -44,8 +42,8 @@ public class Board implements Cloneable {
         }
     }
 
-    public EmptyPiece getEmptyPiece() {
-        return this.empty;
+    public Piece getEmptyPiece() {
+        return this.pieces[this.empty.getRow()][this.empty.getCol()];
     }
 
     @Override
@@ -73,7 +71,6 @@ public class Board implements Cloneable {
 
     public Board movePiece(EMovementType moveType) throws InvalidMovementException {
         Board returnBoard = new Board(this);
-        Piece temp;
         int row, col;
         switch (moveType) {
             case UP:
@@ -83,21 +80,13 @@ public class Board implements Cloneable {
                     throw new InvalidMovementException();
                 }
 
-//                target = this.pieces[this.empty.getRow() + 1][this.empty.getCol()];
-
                 break;
             case DOWN:
                 row = this.empty.getRow() - 1;
                 col = this.empty.getCol();
                 if (row == -1) {
                     throw new InvalidMovementException();
-                }
-
-                
-                temp = returnBoard.empty;
-//                returnBoard.pieces[row][col];
-                
-                
+                }                
                 break;
             case LEFT:
                 row = this.empty.getRow();
@@ -106,7 +95,6 @@ public class Board implements Cloneable {
                     throw new InvalidMovementException();
                 }
 
-                //target = this.pieces[this.empty.getRow()][this.empty.getCol() + 1];
                 break;
             case RIGHT:
                 row = this.empty.getRow();
@@ -114,12 +102,19 @@ public class Board implements Cloneable {
                 if (col == -1) {
                     throw new InvalidMovementException();
                 }
-
-//                target = this.pieces[this.empty.getRow()][this.empty.getCol() - 1];
                 break;
             default:
                 throw new UnsupportedOperationException("Operação não suportada.");
         }
+        this.swapPieces(returnBoard, row, col);
         return returnBoard;
+    }
+
+    private void swapPieces(Board board, int row, int col) {
+        Piece temp = board.getEmptyPiece();
+        board.pieces[board.empty.getRow()][board.empty.getCol()] = board.pieces[row][col];
+        board.pieces[row][col] = temp;
+        board.empty.setRow(row);
+        board.empty.setCol(col);
     }
 }

@@ -1,44 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package moa;
 
-/**
- *
- * @author guest-pEDpUc
- */
-public class EmptyPiece extends Piece {
+public class EmptyPiece {
 
     private int row;
     private int col;
 
-    public EmptyPiece(int number, int row, int col) {
-        super(number);
-        this.row = row;
-        this.col = col;
-    }
-
-    public EmptyPiece(Piece p, int row, int col) {
-        super(p);
+    public EmptyPiece(int row, int col) {
         this.row = row;
         this.col = col;
     }
 
     public int getRow() {
-        return this.row;
+        return row;
     }
 
     public int getCol() {
-        return this.col;
+        return col;
     }
 
-    public void setRow(int row) {
+    void setRow(int row) {
         this.row = row;
     }
 
-    public void setCol(int col) {
+    void setCol(int col) {
         this.col = col;
     }
+
 }

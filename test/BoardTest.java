@@ -88,7 +88,7 @@ public class BoardTest {
         pieces.add(new Piece(7));
         Board board = new Board(pieces);
 
-        Piece p = new EmptyPiece(Config.EmptyPiece, 2, 1);
+        Piece p = new Piece(Config.EmptyPiece);
 
         assertEquals(board.getEmptyPiece(), p);
     }
@@ -167,6 +167,8 @@ public class BoardTest {
         try {
             newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.DOWN);
             assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 13);
+            assertTrue(newBoard.getPieceAt(1, 1).getNumber() == 0);
+            assertTrue(newBoard.getEmptyPiece().getNumber() == 0);
         } catch (InvalidMovementException ex) {
             isError = true;
             Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,6 +183,8 @@ public class BoardTest {
         try {
             newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.UP);
             assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 9);
+            assertTrue(newBoard.getPieceAt(3, 1).getNumber() == 0);
+            assertTrue(newBoard.getEmptyPiece().getNumber() == 0);
         } catch (InvalidMovementException ex) {
             isError = true;
             Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -195,6 +199,8 @@ public class BoardTest {
         try {
             newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.LEFT);
             assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 15);
+            assertTrue(newBoard.getPieceAt(2, 2).getNumber() == 0);
+            assertTrue(newBoard.getEmptyPiece().getNumber() == 0);
         } catch (InvalidMovementException ex) {
             isError = true;
             Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,6 +215,8 @@ public class BoardTest {
         try {
             newBoard = this.getTabuleiroResolvido().movePiece(EMovementType.RIGHT);
             assertTrue(newBoard.getPieceAt(2, 1).getNumber() == 11);
+            assertTrue(newBoard.getPieceAt(2, 0).getNumber() == 0);
+            assertTrue(newBoard.getEmptyPiece().getNumber() == 0);
         } catch (InvalidMovementException ex) {
             isError = true;
             Logger.getLogger(BoardTest.class.getName()).log(Level.SEVERE, null, ex);
