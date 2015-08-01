@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class TreeController {
 
-    private List<Node> nodeQueue;
-    private Map<String, Board> inativos;
+    private final List<Node> nodeQueue;
+    private final Map<String, Board> inativos;
 
     public TreeController(Root root) {
         nodeQueue = new ArrayList<>();
@@ -17,12 +17,12 @@ public class TreeController {
         inativos.put(root.getBoard().getHash(), root.getBoard());
 
     }
-
     //Magic begins here!
-    public int calculateMinPlays() {//throws NoSolutionException{
+    public int calculateMinPlays() {
         Node nodeIterator;
         while (!nodeQueue.isEmpty()) {
             nodeIterator = nodeQueue.remove(0);
+            System.out.println(nodeIterator.getResultado());
             if (nodeIterator.getBoard().checkWin()) {
                 return nodeIterator.getResultado();
             }
@@ -39,7 +39,6 @@ public class TreeController {
             }
         }
 
-        //throw new NoSolutionException();
         return -1;
     }
 }
