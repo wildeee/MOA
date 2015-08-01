@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import moa.Board;
 import moa.Config;
 import moa.EMovementType;
-import moa.EmptyPiece;
 import moa.InvalidMovementException;
 import moa.Piece;
 import org.junit.After;
@@ -346,5 +345,28 @@ public class BoardTest {
         }
 
         assertTrue(isError);
+    }
+
+    @Test
+    public void testHash() {
+        List<Piece> pieces = new ArrayList<>();
+        pieces.add(new Piece(Config.EmptyPiece));
+        pieces.add(new Piece(1));
+        pieces.add(new Piece(2));
+        pieces.add(new Piece(3));
+        pieces.add(new Piece(4));
+        pieces.add(new Piece(12));
+        pieces.add(new Piece(13));
+        pieces.add(new Piece(14));
+        pieces.add(new Piece(5));
+        pieces.add(new Piece(11));
+        pieces.add(new Piece(15));
+        pieces.add(new Piece(6));
+        pieces.add(new Piece(10));
+        pieces.add(new Piece(9));
+        pieces.add(new Piece(8));
+        pieces.add(new Piece(7));
+        Board board = new Board(pieces);
+        assertEquals("0|1|2|3|4|12|13|14|5|11|15|6|10|9|8|7|", board.getHash());
     }
 }

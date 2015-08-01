@@ -6,14 +6,12 @@ import java.util.logging.Logger;
 
 public class Board implements Cloneable {
 
-    private static int idCount = 0;
-    private final int id;
+    private String id;
     private EmptyPiece empty;
 
     private Piece[][] pieces;
 
     public Board(List<Piece> pieces) {
-        this.id = Board.idCount++;
 
         this.pieces = new Piece[Config.BoardWidth][Config.BoardHeight];
         int index;
@@ -29,14 +27,20 @@ public class Board implements Cloneable {
                 this.pieces[row][col] = emp;
             }
         }
+        this.id = this.calculateHash();
     }
 
     public Board(Board board) {
-        this.id = Board.idCount++;
+        this.pieces = new Piece[Config.BoardWidth][Config.BoardHeight];
         try {
             Board b = (Board) board.clone();
-            this.empty = b.empty;
-            this.pieces = b.pieces;
+            this.empty = new EmptyPiece(b.empty.getRow(), b.empty.getCol());
+            for (int i = 0; i < Config.BoardWidth; i++) {
+                for (int j = 0; j < Config.BoardHeight; j++) {
+                    this.pieces[i][j] = new Piece(b.pieces[i][j]);
+                }
+            }
+
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -51,7 +55,7 @@ public class Board implements Cloneable {
         if (!(obj instanceof Board)) {
             return false;
         }
-        return this.id == ((Board) obj).id;
+        return (this.id == null ? ((Board) obj).id == null : this.id.equals(((Board) obj).id));
     }
 
     public Piece getPieceAt(int row, int col) {
@@ -86,7 +90,7 @@ public class Board implements Cloneable {
                 col = this.empty.getCol();
                 if (row == -1) {
                     throw new InvalidMovementException();
-                }                
+                }
                 break;
             case LEFT:
                 row = this.empty.getRow();
@@ -107,14 +111,33 @@ public class Board implements Cloneable {
                 throw new UnsupportedOperationException("Operação não suportada.");
         }
         this.swapPieces(returnBoard, row, col);
+        returnBoard.id = returnBoard.calculateHash();
+
         return returnBoard;
     }
 
     private void swapPieces(Board board, int row, int col) {
+//        board.pieces[this.empty.getRow()][this.empty.getCol()] = new Piece(this.pieces[this.empty.getRow()][this.empty.getCol()]);;
+//        board.pieces[row][col] = new Piece(this.pieces[row][col]);
+//        board.empty = new EmptyPiece(this.empty.getRow(), this.empty.getCol());
         Piece temp = board.getEmptyPiece();
         board.pieces[board.empty.getRow()][board.empty.getCol()] = board.pieces[row][col];
         board.pieces[row][col] = temp;
         board.empty.setRow(row);
         board.empty.setCol(col);
+    }
+
+    public String getHash() {
+        return this.id;
+    }
+
+    private String calculateHash() {
+        StringBuilder builder = new StringBuilder();
+        for (Piece[] piece : this.pieces) {
+            for (Piece p : piece) {
+                builder.append(p.getNumber().toString()).append('|');
+            }
+        }
+        return builder.toString();
     }
 }

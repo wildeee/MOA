@@ -9,7 +9,7 @@ public class Piece implements Cloneable {
             Piece pi = (Piece) p.clone();
             number = pi.getNumber();
         } catch (CloneNotSupportedException ex) {
-            ex.printStackTrace();
+            System.out.println("Não foi possível clonar o objeto");
         }
     }
 
@@ -17,7 +17,7 @@ public class Piece implements Cloneable {
         this.number = number;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 

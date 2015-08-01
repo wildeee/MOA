@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author guest-BHuB2B
  */
-public class NormalPieceTest {
+public class PieceTest {
 
-    public NormalPieceTest() {
+    public PieceTest() {
     }
 
     @BeforeClass
@@ -40,7 +40,7 @@ public class NormalPieceTest {
     @Test
     public void NormalPieceCtrTest() {
         Piece p = new Piece(1);
-        assertEquals(p.getNumber(), 1);
+        assertTrue(p.getNumber() == 1);
     }
 
     @Test
