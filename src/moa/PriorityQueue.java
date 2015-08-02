@@ -15,21 +15,22 @@ public class PriorityQueue {
 
     public void add(List<Branch> node) {
         if (!node.isEmpty()) {
-
-            Node[] n = new Node[node.size()];
-            n = node.toArray(n);
-            Branch anyNode = node.get(0);
-            Arrays.sort(n, anyNode);
-            for (Node nodeit : n) {
-                queue.add(nodeit);
+            for (Node nodeIt : node) {
+                queue.add(nodeIt);
             }
+            this.queue = this.sort(this.queue);
+
+//            Node[] n = new Node[node.size()];
+//            n = queue.toArray(n);
+//            Arrays.sort(n, node.get(0));
+//            this.queue = new LinkedList<>(Arrays.asList(n));
+        }
 
 //        this.queue.add(node);
 //        Node[] n = new Node[queue.size()];
 //        n = this.queue.toArray(n);
 //        Arrays.sort(n, node);
 //        this.queue = new LinkedList<>(Arrays.asList(n));
-        }
     }
 
     public Node remove() {
@@ -38,6 +39,13 @@ public class PriorityQueue {
 
     public boolean isEmpty() {
         return this.queue.isEmpty();
+    }
+
+    private List<Node> sort(List<Node> notSorted) {
+        Node[] n = new Node[notSorted.size()];
+        n = notSorted.toArray(n);
+        Arrays.sort(n, notSorted.get(0));
+        return new LinkedList<>(Arrays.asList(n));
     }
 
 }

@@ -7,7 +7,7 @@ public class Root extends Node {
     }
 
     @Override
-    public int getResultado() {
+    public int getLevel() {
         return 0;
     }
 

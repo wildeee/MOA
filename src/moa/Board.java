@@ -117,9 +117,6 @@ public class Board implements Cloneable {
     }
 
     private void swapPieces(Board board, int row, int col) {
-//        board.pieces[this.empty.getRow()][this.empty.getCol()] = new Piece(this.pieces[this.empty.getRow()][this.empty.getCol()]);;
-//        board.pieces[row][col] = new Piece(this.pieces[row][col]);
-//        board.empty = new EmptyPiece(this.empty.getRow(), this.empty.getCol());
         Piece temp = board.getEmptyPiece();
         board.pieces[board.empty.getRow()][board.empty.getCol()] = board.pieces[row][col];
         board.pieces[row][col] = temp;

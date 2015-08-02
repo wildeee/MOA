@@ -8,14 +8,14 @@ import java.util.Map;
 public class TreeController {
 
 //    private final List<Node> nodeQueue;
-    private PriorityQueue nodeQueue;
+    private final PriorityQueue nodeQueue;
     private final Map<String, Board> inativos;
-    
+
     public TreeController(Root root) {
         nodeQueue = new PriorityQueue(root);
         inativos = new HashMap<>();
         inativos.put(root.getBoard().getHash(), root.getBoard());
-        
+
     }
 
     //Magic begins here!
@@ -24,14 +24,14 @@ public class TreeController {
         List<Branch> addingNodes = new ArrayList<>();
         while (!nodeQueue.isEmpty()) {
             nodeIterator = nodeQueue.remove();
-            //System.out.println(nodeIterator.getResultado());
+            //System.out.println(nodeIterator.getLevel());
             if (nodeIterator.getBoard().checkWin()) {
-                return nodeIterator.getResultado();
+                return nodeIterator.getLevel();
             }
-            
+
             addingNodes.clear();
             for (EMovementType move : EMovementType.values()) {
-                try {                    
+                try {
                     Board board = nodeIterator.getBoard().movePiece(move);
                     if (inativos.get(board.getHash()) == null) { // Assegurando que não hajam tabuleiros repetidos na árvore
                         inativos.put(board.getHash(), board);
@@ -42,7 +42,7 @@ public class TreeController {
                 nodeQueue.add(addingNodes);
             }
         }
-        
+
         return -1;
     }
 }
