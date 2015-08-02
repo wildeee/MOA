@@ -9,14 +9,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class InputManager {
-    
-    public static List<Integer> ConsoleRead(){
+
+    public static List<Integer> ConsoleRead() {
         BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
         try {
             String inputBruto = bufferRead.readLine();
             List<Integer> inputs = new ArrayList<>();
-        
-            for (String str : inputBruto.split(" ")){
+
+            for (String str : inputBruto.split(" ")) {
                 inputs.add(Integer.parseInt(str));
             }
             return inputs;
@@ -25,5 +25,5 @@ public class InputManager {
         }
         return null;
     }
-    
+
 }

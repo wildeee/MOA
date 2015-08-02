@@ -14,4 +14,18 @@ public abstract class Node {
 
     public abstract int getResultado();
 
+    public int getEstimatedRolls() {
+        int count = 0;
+
+        for (int row = 0; row < Config.BoardWidth; row++) {
+            for (int col = 0; col < Config.BoardHeight; col++) {
+                if (this.board.getPieceAt(row, col).getNumber() != Config.Answer[row][col].getNumber()) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
 }

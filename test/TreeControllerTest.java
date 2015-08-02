@@ -111,7 +111,7 @@ public class TreeControllerTest {
                 )
         );
 
-        assertEquals(ctrl.calculateMinPlays(), 13);;
+        assertEquals(13, ctrl.calculateMinPlays());
     }
 
     @Test
@@ -145,7 +145,7 @@ public class TreeControllerTest {
                 )
         );
 
-        //assertEquals(ctrl.calculateMinPlays(), 30);
+//        assertEquals(30, ctrl.calculateMinPlays());
     }
 
     @Test
