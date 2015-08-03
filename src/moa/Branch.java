@@ -2,7 +2,6 @@ package moa;
 
 public class Branch extends Node {
 
-//    private final Node parent;
     private final int level;
 
     public Branch(Board board, Node parent) {

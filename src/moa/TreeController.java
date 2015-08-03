@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class TreeController {
 
-//    private final List<Node> nodeQueue;
     private final PriorityQueue nodeQueue;
     private final Map<String, Board> inativos;
 
@@ -24,7 +23,7 @@ public class TreeController {
         List<Branch> addingNodes = new ArrayList<>();
         while (!nodeQueue.isEmpty()) {
             nodeIterator = nodeQueue.remove();
-            //System.out.println(nodeIterator.getLevel());
+            System.out.println(nodeIterator.getLevel());
             if (nodeIterator.getBoard().checkWin()) {
                 return nodeIterator.getLevel();
             }
@@ -39,8 +38,8 @@ public class TreeController {
                     }
                 } catch (InvalidMovementException ex) {
                 }
-                nodeQueue.add(addingNodes);
             }
+            nodeQueue.add(addingNodes);
         }
 
         return -1;

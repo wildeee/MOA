@@ -19,18 +19,7 @@ public class PriorityQueue {
                 queue.add(nodeIt);
             }
             this.queue = this.sort(this.queue);
-
-//            Node[] n = new Node[node.size()];
-//            n = queue.toArray(n);
-//            Arrays.sort(n, node.get(0));
-//            this.queue = new LinkedList<>(Arrays.asList(n));
         }
-
-//        this.queue.add(node);
-//        Node[] n = new Node[queue.size()];
-//        n = this.queue.toArray(n);
-//        Arrays.sort(n, node);
-//        this.queue = new LinkedList<>(Arrays.asList(n));
     }
 
     public Node remove() {
@@ -45,6 +34,7 @@ public class PriorityQueue {
         Node[] n = new Node[notSorted.size()];
         n = notSorted.toArray(n);
         Arrays.sort(n, notSorted.get(0));
+
         return new LinkedList<>(Arrays.asList(n));
     }
 
