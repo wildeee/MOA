@@ -3,7 +3,7 @@ package moa;
 import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Node implements Comparator<Node> {
+public abstract class Node implements Comparator<Node>{
 
     private final Board board;
 
@@ -116,14 +116,20 @@ public abstract class Node implements Comparator<Node> {
 
     @Override
     public int compare(Node n1, Node n2) {
-        final double p1 = 0.0;
-        final double p2 = 0.0;
-        final double p3 = 1;
+        
+        return n1.getPeso() - n2.getPeso();
+//        final double p1 = 0.0;
+//        final double p2 = 0.0;
+//        final double p3 = 1;
 
-        return ((n1.h1() * p1) + (n1.h2() * p2) + (n1.h3() * p3)) - ((n2.h1() * p1) + (n2.h2() * p2) + (n2.h3() * p3)) < 0 ? -1 : 1;
+//        return ((n1.h1() * p1) + (n1.h2() * p2) + (n1.h3() * p3)) - ((n2.h1() * p1) + (n2.h2() * p2) + (n2.h3() * p3)) < 0 ? -1 : 1;
 //        return (n1.h3() - n2.h3()); // 30 infinito
 //        return (n1.h2() - n2.h2()); // 13 expected, got 39 ; 30 expected, got 106
 //        return (n1.h1() - n2.h1()); // 30 expected, got 112 ; 13 expected, got 25
+    }
+
+    public Integer getPeso() {
+        return this.h1() + this.getLevel();
     }
 
 }

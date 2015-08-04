@@ -1,20 +1,22 @@
 package moa;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class TreeController {
 
-    private final PriorityQueue nodeQueue;
-    private final Map<String, Board> inativos;
+    private final PriorityQueue<Node> nodeQueue;
+    private final Map<String, Integer> inativos;
 
     public TreeController(Root root) {
-        nodeQueue = new PriorityQueue(root);
+        nodeQueue = new PriorityQueue<>(new NodeComparator());
+        nodeQueue.add(root);
         inativos = new HashMap<>();
-        inativos.put(root.getBoard().getHash(), root.getBoard());
-
+       
     }
 
     //Magic begins here!
@@ -27,19 +29,25 @@ public class TreeController {
             if (nodeIterator.getBoard().checkWin()) {
                 return nodeIterator.getLevel();
             }
-
+            
+            inativos.put(nodeIterator.getBoard().getHash(), nodeIterator.getPeso());
+            
             addingNodes.clear();
             for (EMovementType move : EMovementType.values()) {
                 try {
                     Board board = nodeIterator.getBoard().movePiece(move);
-                    if (inativos.get(board.getHash()) == null) { // Assegurando que não hajam tabuleiros repetidos na árvore
-                        inativos.put(board.getHash(), board);
-                        addingNodes.add(new Branch(board, nodeIterator));
+                    if (inativos.containsKey(board.getHash())) { // Assegurando que não hajam tabuleiros repetidos na árvore
+                        if(nodeIterator.getPeso() >= inativos.get(board.getHash())){
+                            continue;
+                        }
                     }
+                    addingNodes.add(new Branch(board, nodeIterator));
                 } catch (InvalidMovementException ex) {
                 }
             }
-            nodeQueue.add(addingNodes);
+            for (Node nude : addingNodes){
+                nodeQueue.add(nude);
+            }
         }
 
         return -1;
