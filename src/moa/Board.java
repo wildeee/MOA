@@ -73,11 +73,11 @@ public class Board implements Cloneable {
         return true;
     }
 
-    public Board movePiece(EMovementType moveType) throws InvalidMovementException {
+    public Board movePiece(int moveType) throws InvalidMovementException {
         Board returnBoard = new Board(this);
         int row, col;
         switch (moveType) {
-            case UP:
+            case EMovementType.UP:
                 row = this.empty.getRow() + 1;
                 col = this.empty.getCol();
                 if (row == Config.BoardHeight) {
@@ -85,14 +85,14 @@ public class Board implements Cloneable {
                 }
 
                 break;
-            case DOWN:
+            case EMovementType.DOWN:
                 row = this.empty.getRow() - 1;
                 col = this.empty.getCol();
                 if (row == -1) {
                     throw new InvalidMovementException();
                 }
                 break;
-            case LEFT:
+            case EMovementType.LEFT:
                 row = this.empty.getRow();
                 col = this.empty.getCol() + 1;
                 if (col == Config.BoardWidth) {
@@ -100,7 +100,7 @@ public class Board implements Cloneable {
                 }
 
                 break;
-            case RIGHT:
+            case EMovementType.RIGHT:
                 row = this.empty.getRow();
                 col = this.empty.getCol() - 1;
                 if (col == -1) {

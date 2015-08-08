@@ -29,7 +29,7 @@ public abstract class Node {
     }
 
     private int h2() { // Peças fora de sequencia
-        EMovementType move = EMovementType.RIGHT;
+        int move = EMovementType.RIGHT;
         int count = 0;
         int row = 0;
         int col = 0;
@@ -50,16 +50,16 @@ public abstract class Node {
 
             move = this.getNextMove(move, row, col, visited);
             switch (move) {
-                case RIGHT:
+                case EMovementType.RIGHT:
                     col++;
                     break;
-                case DOWN:
+                case EMovementType.DOWN:
                     row++;
                     break;
-                case LEFT:
+                case EMovementType.LEFT:
                     col--;
                     break;
-                case UP:
+                case EMovementType.UP:
                     row--;
                     break;
             }
@@ -86,24 +86,24 @@ public abstract class Node {
         return count;
     }
 
-    private EMovementType getNextMove(EMovementType actualMovement, int row, int col, boolean[][] visited) {
+    private int getNextMove(int actualMovement, int row, int col, boolean[][] visited) {
         switch (actualMovement) {
-            case RIGHT:
+            case EMovementType.RIGHT:
                 if (col + 1 == Config.BoardWidth || visited[row][col + 1]) {
                     return EMovementType.DOWN;
                 }
                 break;
-            case DOWN:
+            case EMovementType.DOWN:
                 if (row + 1 == Config.BoardHeight || visited[row + 1][col]) {
                     return EMovementType.LEFT;
                 }
                 break;
-            case UP:
+            case EMovementType.UP:
                 if (row - 1 == -1 || visited[row - 1][col]) {
                     return EMovementType.RIGHT;
                 }
                 break;
-            case LEFT:
+            case EMovementType.LEFT:
                 if (col - 1 == -1 || visited[row][col - 1]) {
                     return EMovementType.UP;
                 }

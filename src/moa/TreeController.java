@@ -13,7 +13,7 @@ public class TreeController {
         nodeQueue = new PriorityQueue<>(new NodeComparator());
         nodeQueue.add(root);
         inativos = new HashMap<>();
-       
+
     }
 
     //Magic begins here!
@@ -24,14 +24,14 @@ public class TreeController {
             if (nodeIterator.getBoard().checkWin()) {
                 return nodeIterator.getLevel();
             }
-            
+
             inativos.put(nodeIterator.getBoard().getHash(), nodeIterator.getPeso());
-            
-            for (EMovementType move : EMovementType.values()) {
+
+            for (int move : EMovementType.values()) {
                 try {
                     Board board = nodeIterator.getBoard().movePiece(move);
                     if (inativos.containsKey(board.getHash())) { // Assegurando que não hajam tabuleiros repetidos na árvore
-                        if(nodeIterator.getPeso() >= inativos.get(board.getHash())){
+                        if (nodeIterator.getPeso() >= inativos.get(board.getHash())) {
                             continue;
                         }
                     }
