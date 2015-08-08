@@ -1,9 +1,6 @@
 package moa;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -22,17 +19,14 @@ public class TreeController {
     //Magic begins here!
     public int calculateMinPlays() {
         Node nodeIterator;
-        List<Branch> addingNodes = new ArrayList<>();
         while (!nodeQueue.isEmpty()) {
             nodeIterator = nodeQueue.remove();
-            System.out.println(nodeIterator.getLevel());
             if (nodeIterator.getBoard().checkWin()) {
                 return nodeIterator.getLevel();
             }
             
             inativos.put(nodeIterator.getBoard().getHash(), nodeIterator.getPeso());
             
-            addingNodes.clear();
             for (EMovementType move : EMovementType.values()) {
                 try {
                     Board board = nodeIterator.getBoard().movePiece(move);
@@ -41,12 +35,9 @@ public class TreeController {
                             continue;
                         }
                     }
-                    addingNodes.add(new Branch(board, nodeIterator));
+                    nodeQueue.add(new Branch(board, nodeIterator));
                 } catch (InvalidMovementException ex) {
                 }
-            }
-            for (Node nude : addingNodes){
-                nodeQueue.add(nude);
             }
         }
 

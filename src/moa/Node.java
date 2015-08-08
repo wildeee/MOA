@@ -1,9 +1,8 @@
 package moa;
 
-import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Node implements Comparator<Node>{
+public abstract class Node {
 
     private final Board board;
 
@@ -16,25 +15,6 @@ public abstract class Node implements Comparator<Node>{
     }
 
     public abstract int getLevel();
-
-    private int h3() { // Distância do lugar que deveria estar
-        int count = 0;
-        for (int row = 0; row < Config.BoardWidth; row++) {
-            for (int col = 0; col < Config.BoardHeight; col++) {
-                if (!Objects.equals(this.board.getPieceAt(row, col).getNumber(), Config.Answer[row][col].getNumber())) {
-                    int target = Config.Answer[row][col].getNumber();
-                    for (int i = 0; i < Config.BoardWidth; i++) {
-                        for (int j = 0; j < Config.BoardHeight; j++) {
-                            if (target == this.board.getPieceAt(i, j).getNumber()) {
-                                count += Math.abs(row - i) + Math.abs(col + j);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return count;
-    }
 
     private int h1() { // Peças fora do lugar
         int count = 0;
@@ -84,7 +64,25 @@ public abstract class Node implements Comparator<Node>{
                     break;
             }
         }
+        return count;
+    }
 
+    private int h3() { // Distância do lugar que deveria estar
+        int count = 0;
+        for (int row = 0; row < Config.BoardWidth; row++) {
+            for (int col = 0; col < Config.BoardHeight; col++) {
+                if (!Objects.equals(this.board.getPieceAt(row, col).getNumber(), Config.Answer[row][col].getNumber())) {
+                    int target = Config.Answer[row][col].getNumber();
+                    for (int i = 0; i < Config.BoardWidth; i++) {
+                        for (int j = 0; j < Config.BoardHeight; j++) {
+                            if (target == this.board.getPieceAt(i, j).getNumber()) {
+                                count += Math.abs(row - i) + Math.abs(col + j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return count;
     }
 
@@ -114,22 +112,8 @@ public abstract class Node implements Comparator<Node>{
         return actualMovement;
     }
 
-    @Override
-    public int compare(Node n1, Node n2) {
-        
-        return n1.getPeso() - n2.getPeso();
-//        final double p1 = 0.0;
-//        final double p2 = 0.0;
-//        final double p3 = 1;
-
-//        return ((n1.h1() * p1) + (n1.h2() * p2) + (n1.h3() * p3)) - ((n2.h1() * p1) + (n2.h2() * p2) + (n2.h3() * p3)) < 0 ? -1 : 1;
-//        return (n1.h3() - n2.h3()); // 30 infinito
-//        return (n1.h2() - n2.h2()); // 13 expected, got 39 ; 30 expected, got 106
-//        return (n1.h1() - n2.h1()); // 30 expected, got 112 ; 13 expected, got 25
-    }
-
     public Integer getPeso() {
-        return this.h1() + this.getLevel();
+        return (int) Math.floor(((this.h1()) * 0.3) + (this.h2() * 0.3) + (this.h3() * 0.3) + this.getLevel());
     }
 
 }
