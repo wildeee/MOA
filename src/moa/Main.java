@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
+//teste
     public static void main(String[] args) {
         List<Integer> num = InputManager.ConsoleRead();
         List<Piece> pieces = new ArrayList<>();
