@@ -56,25 +56,6 @@ public class TreeControllerTest {
     public void tabuleiroResolvidoZeroJogadas() {
 
         List<Piece> pieces = this.getPieces("1 2 3 4 12 13 14 5 11 0 15 6 10 9 8 7");
-        pieces.add(new Piece(1));
-        pieces.add(new Piece(2));
-        pieces.add(new Piece(3));
-        pieces.add(new Piece(4));
-
-        pieces.add(new Piece(12));
-        pieces.add(new Piece(13));
-        pieces.add(new Piece(14));
-        pieces.add(new Piece(5));
-
-        pieces.add(new Piece(11));
-        pieces.add(new Piece(0));
-        pieces.add(new Piece(15));
-        pieces.add(new Piece(6));
-
-        pieces.add(new Piece(10));
-        pieces.add(new Piece(9));
-        pieces.add(new Piece(8));
-        pieces.add(new Piece(7));
 
         Board board = new Board(pieces);
         Root root = new Root(board);
@@ -150,35 +131,35 @@ public class TreeControllerTest {
 
         assertEquals(41, ctrl.calculateMinPlays());
     }
-//
-//    @Test
-//    public void testeExemploQuarentaESeisJogadas() {
-//
-//        List<Piece> pieces = this.getPieces("12 9 7 2 10 14 0 3 13 4 1 8 6 11 5 15");
-//
-//        TreeController ctrl = new TreeController(
-//                new Root(
-//                        new Board(pieces)
-//                )
-//        );
-//
-//        assertEquals(46, ctrl.calculateMinPlays());
-//    }
-//
-//    @Test
-//    public void testeExemploQuarentaEOitoJogadas() {
-//
-//        List<Piece> pieces = this.getPieces("14 13 7 8 5 2 15 3 12 6 4 9 10 1 0 11");
-//
-//        TreeController ctrl = new TreeController(
-//                new Root(
-//                        new Board(pieces)
-//                )
-//        );
-//
-//        assertEquals(48, ctrl.calculateMinPlays());
-//    }
-//
+
+    @Test
+    public void testeExemploQuarentaESeisJogadas() {
+
+        List<Piece> pieces = this.getPieces("12 9 7 2 10 14 0 3 13 4 1 8 6 11 5 15");
+
+        TreeController ctrl = new TreeController(
+                new Root(
+                        new Board(pieces)
+                )
+        );
+
+        assertEquals(46, ctrl.calculateMinPlays());
+    }
+
+    @Test
+    public void testeExemploQuarentaEOitoJogadas() {
+
+        List<Piece> pieces = this.getPieces("14 13 7 8 5 2 15 3 12 6 4 9 10 1 0 11");
+
+        TreeController ctrl = new TreeController(
+                new Root(
+                        new Board(pieces)
+                )
+        );
+
+        assertEquals(48, ctrl.calculateMinPlays());
+    }
+
 //    @Test
 //    public void testeExemploInterrocagaoJogadas() {
 //

@@ -16,7 +16,7 @@ public abstract class Node {
 
     public abstract int getLevel();
 
-    private int h1() { // Peças fora do lugar
+    private int h1() { // Pecas fora do lugar
         int count = 0;
         for (int row = 0; row < Config.BoardWidth; row++) {
             for (int col = 0; col < Config.BoardHeight; col++) {
@@ -28,7 +28,7 @@ public abstract class Node {
         return count;
     }
 
-    private int h2() { // Peças fora de sequencia
+    private int h2() { // Pecas fora de sequencia
         EMovementType move = EMovementType.RIGHT;
         int count = 0;
         int row = 0;
@@ -67,7 +67,7 @@ public abstract class Node {
         return count;
     }
 
-    private int h3() { // Distância do lugar que deveria estar
+    private int h3() { // Distancia do lugar que deveria estar
         int count = 0;
         for (int row = 0; row < Config.BoardWidth; row++) {
             for (int col = 0; col < Config.BoardHeight; col++) {
@@ -76,7 +76,7 @@ public abstract class Node {
                     for (int i = 0; i < Config.BoardWidth; i++) {
                         for (int j = 0; j < Config.BoardHeight; j++) {
                             if (target == this.board.getPieceAt(i, j).getNumber()) {
-                                count += Math.abs(row - i) + Math.abs(col + j);
+                                count += Math.abs(row - i) + Math.abs(col - j);
                             }
                         }
                     }
@@ -113,7 +113,11 @@ public abstract class Node {
     }
 
     public Integer getPeso() {
-        return (int) Math.floor(((this.h1()) * 0.3) + (this.h2() * 0.3) + (this.h3() * 0.3) + this.getLevel());
+        final double p1 = 0.3;
+        final double p2 = 0.3;
+        final double p3 = 0.3;
+        
+        return Integer.max(Integer.max(this.h1(),this.h3()), this.h2()) + this.getLevel();
     }
 
 }
