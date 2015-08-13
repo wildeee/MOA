@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.util.ArrayList;
 import java.util.List;
 import moa.Board;
@@ -17,10 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author guest-rc7n4B
- */
 public class TreeControllerTest {
 
     public TreeControllerTest() {
@@ -51,10 +41,9 @@ public class TreeControllerTest {
 
         return p;
     }
-
+    
     @Test
     public void tabuleiroResolvidoZeroJogadas() {
-
         List<Piece> pieces = this.getPieces("1 2 3 4 12 13 14 5 11 0 15 6 10 9 8 7");
 
         Board board = new Board(pieces);
@@ -65,7 +54,6 @@ public class TreeControllerTest {
 
     @Test
     public void testeExemploOitoJogadas() {
-
         List<Piece> pieces = this.getPieces("2 3 4 5 1 13 14 6 12 11 15 0 10 9 8 7");
 
         TreeController ctrl = new TreeController(
@@ -78,7 +66,6 @@ public class TreeControllerTest {
 
     @Test
     public void testeExemploTrezeJogadas() {
-
         List<Piece> pieces = this.getPieces("2 3 4 5 1 13 14 6 0 11 15 7 12 10 9 8");
 
         TreeController ctrl = new TreeController(
@@ -92,7 +79,6 @@ public class TreeControllerTest {
 
     @Test
     public void testeExemploVinteEOitoJogadas() {
-
         List<Piece> pieces = this.getPieces("2 4 5 6 0 3 14 13 1 11 9 7 12 15 10 8");
 
         TreeController ctrl = new TreeController(
@@ -106,7 +92,6 @@ public class TreeControllerTest {
 
     @Test
     public void testeExemploTrintaESeisJogadas() {
-
         List<Piece> pieces = this.getPieces("12 1 5 4 9 14 6 10 3 15 13 2 11 8 0 7");
 
         TreeController ctrl = new TreeController(
@@ -120,7 +105,6 @@ public class TreeControllerTest {
 
     @Test
     public void testeExemploQuarentaEUmaJogadas() {
-
         List<Piece> pieces = this.getPieces("0 4 6 13 2 5 3 7 1 11 14 8 12 15 9 10");
 
         TreeController ctrl = new TreeController(
@@ -134,9 +118,8 @@ public class TreeControllerTest {
 
     @Test
     public void testeExemploQuarentaESeisJogadas() {
-
         List<Piece> pieces = this.getPieces("12 9 7 2 10 14 0 3 13 4 1 8 6 11 5 15");
-
+        
         TreeController ctrl = new TreeController(
                 new Root(
                         new Board(pieces)
@@ -148,7 +131,6 @@ public class TreeControllerTest {
 
     @Test
     public void testeExemploQuarentaEOitoJogadas() {
-
         List<Piece> pieces = this.getPieces("14 13 7 8 5 2 15 3 12 6 4 9 10 1 0 11");
 
         TreeController ctrl = new TreeController(

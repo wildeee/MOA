@@ -31,4 +31,6 @@ public class Config {
             new Piece(7)
         }
     };
+
+    public static final IHeuristic Heuristica = new H5();
 }
